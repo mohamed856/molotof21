@@ -1,0 +1,637 @@
+#include<iostream>
+#include<string>
+#include<ctime>
+#include<conio.h>
+#include<windows.h>
+#include <cstdlib>
+using namespace std;
+enum Direction  {Top = 1 , Right , Down ,Left};            /* here u make some of directions to use ur keyboard to move the o snake */
+struct Map {int width, height, fruit_x, fruit_y;};            /*  there is some of structures we need to make and use it to make the environment for the game */            
+                                                              /* we added structers for map and olayer and snake*/           
+                                                              
+struct Snake{int head_x ,head_y, Tail_n; Direction dir;};
+struct Player{int score;bool lose;}; /* tow of variables one discribes score and other describe the status of player*/
+   Map map1; Snake snake1;Player player1;       
+generate_fruit(){
+srand(time(NULL));                             
+map1.fruit_x=rand()%(map1.width- 2) +1;    /* here i made a function to generate a fruit every time the last one eaten*/
+map1.fruit_y=rand()%(map1.height-2) +1;    /* creation done i n  diffrent places */
+}
+void setup(){
+map1.width =40;  
+              /*here i prefer add even numbers to make it easy to calculate*/
+map1.height =20;
+generate_fruit();
+
+/*----------------------------------------------------------*/
+snake1.head_x = map1.width /2;    
+snake1.head_y = map1.height /2;   /* i prefer boot snake in the middle every new game*/
+snake1.Tail_n = 0;
+/*----------------------------------------------------------*/
+player1.score =0;
+player1.lose=false;}
+/*------------------------------------------------------------*/
+void draw(){
+    system("cls"); /*  imported from <windows.h> */
+   for (size_t i = 0; i < map1.height; i++)   /* here u made instead loop to draw the boardes for the map*/
+   {for (size_t j = 0; j < map1.width; j++)
+   {if (i==0||i==map1.height-1)
+   {
+    cout<<"*";
+   }
+   else if(j==0||j==map1.width-1){
+    cout<<"*";
+   }
+   else if (i==snake1.head_y&&j==snake1.head_x){
+    cout<<"O";/* body of the snake */
+   }
+   else if (i==map1.fruit_y&&j==map1.fruit_x){
+    cout<<"$";
+   }
+    else{
+        cout<<" ";
+    }
+   }
+   cout<<endl;
+
+   }
+cout<<"player score ="<<player1.score<<endl;
+
+}
+void input(){
+ if(_kbhit()) {
+    char c = _getch/**/();
+    switch (c)
+    {
+    case 'w' : snake1.dir = Top;   /*^*/
+    break;
+    case 's' : snake1.dir = Down;/*!^*/
+    break;                               /* here u give orders to key puts in keyboard as a way to move the snake*/
+    case 'a' : snake1.dir = Left; /*<*/
+    break;
+    case 'd' : snake1.dir = Right;/*>*/
+    break;
+    case 'x' : exit(0); /* ! */
+
+
+    default:
+        break;
+    }
+ }                                                               /*make sure u clicked on the ketboard*/
+}
+void _move(){
+    switch (snake1.dir)
+    {
+      case Top : snake1.head_y--;
+    break;
+      case Down : snake1.head_y++;
+    break;
+      case Right : snake1.head_x++;
+    break;
+      case Left : snake1.head_x--;
+    break;
+
+    default:
+        break;
+    }
+if(snake1.head_y >= map1.height||snake1.head_y <=0||snake1.head_x >= map1.width||snake1.head_x <=0){
+    exit(0);
+}
+if (snake1.head_x==map1.fruit_x&&snake1.head_y==map1.fruit_y)
+{
+    generate_fruit();
+    player1.score += 1;
+}
+
+}
+
+using namespace std;
+int main(){
+cout<<"hello to  c++  bot "<<endl;
+int x,y;
+cout<<"please enter ur fav programming language "<<endl<<"1  -  python"<<endl<<"2  - c++"<<endl<<"3  - java"<<endl
+<<"4 - something else"<<endl;/* simple inputs showed in some asks*/
+cin>>x;//FIRST INPUT
+  if(x==1){                                /* FIRST IF WITH 3 CONDTHS
+                                           */
+    cout<< "ur fav language is python "<<endl;//1
+  };
+    if(x==2){
+    cout<< "ur fav language is c++ "<<endl;//2
+  };
+  if(x==3){
+    cout<< "ur fav language is java "<<endl;//3
+  };if(x==4){
+    cout<< " oh it sounds like u in love with lang-else (; "<<endl;//-4
+  };
+/*-----------------------------------------------------------------------------------------------------*/
+cout<<"so tell me what is ur favourite game i heard that from my programmer u love games"<<endl;
+ string ur_fav_game;//~CD IN THE MAIN ROOM~
+ cin>>ur_fav_game; //SECOND INPUT ^1
+ /*1*/cout<<"wow great ur favourite game is " + ur_fav_game<<endl<< "  thats a nice one"<<endl;
+/*-----------------------------------------------------------------------------------------------------*/
+/*2*/ cout<<"oh sorry i missed to ask u "<<endl;
+ /*3*/cout<<"whats is ur name bro ?"<<endl;
+ string ur_name;//~CD INTHE MAIN ROOM~
+ cin>>ur_name;//THIERD INPUT
+ /*1*/cout<<"hi "+ ur_name + " my name is bot and i made by molotof "<<endl;
+ /*2*/cout<<"so please let's  play some games if u dont mind"<<endl;
+ /*-----------------------------------------------------------------------------------------------------*/
+ /*3*/cout<<"I have four games so choose one to play"<<endl<<"num 1 - guesing game"<<endl<<"num 2 - rewrite it"<<endl<<
+ /*-3*/"num 3 - choose the-correct answer "<<endl<<"num 4 - snake"<<endl<<"num 5 - complete the code"<<endl<<"num -6 -  sorry i dont want to play get me out to terminal "<<endl;
+cin>>y;
+/*-----------------------------------------------------------------------------------------------------*/
+if (y==1){ // -> first game #1                           (--guessing game--)
+  string the_right_guess;
+  string  the_guess;
+  cout<<"HELLO TO GUESSING GAME"<<endl<<"in this game i have a word in my memory and u should guess it "<<endl<<"i will give u some hints to solve it "<<endl<<"so lets start"<<endl;
+  cout<<"hint num1 = it is very common city in its country in europe"<<endl;
+  for (size_t i = 0; i < 5; i++)
+  {
+    cin>>the_guess;
+    /*1*/if (the_guess == "paris") // the ans model
+   {
+    cout<<" U WIN (:";
+    break;
+   }
+    /*2*/else if (i==1 && the_guess != "paris") { // first wrong ans
+    cout<<"try again ): "<<endl<<
+   "ok i will give another hint"<<endl<<"it located in country has 3 colors on its flag one of them is blue"<<endl;
+
+   }
+    /*3*/     else if (i==2 && the_guess != "paris")
+    { // the second wrong ans ------------------------------>
+    cout<<"try again ): "<<endl<<
+    "i will give u the thierd hent try ur best this time "<<endl<<"the country won 2018 world cub"<<endl;
+
+  }
+         else if (i==3 && the_guess != "paris") {
+    // the third wrong ans--------------------->
+    cout<<"try again ): "<<endl<<
+    "bro its very easy )< !!" <<endl<<"ok i will give hint num4 "<<endl<<"the other colors in hent 2 is red and white ";
+  }
+   else if(i==4 && the_guess != "paris"){
+    // the fourth wrong ans ------------------------------------->
+    cout<< "sorry u failed ):"<<endl;
+   }
+};
+/*----------------------------------------------------------------------------------------------------------------*/
+}
+ else if (y==3){/*game (3)                    (-choose the correct answer-)*/
+
+cout<<"welcome to choose the-correct answer game "<<endl<<"in this game i will give you 5 questions "<<endl/*welcome statment <--*/
+<<"so your score is from 5"<<"  good luck (:"<<endl;//here i wrote the numbers of questions
+cout<<"first one is "<<endl /*FIRST QUES-----until one coulmn down*/
+<<"50 x 40 x 90 / 100 - 600 / 2 / 1"<<endl/*---^----------------^-*/
+<<" A = 890"<<endl/* first choice*/
+<<" B = 2009"<<endl/* second choice*/
+<<" C = 2078"<<endl/* third choice*/
+<<" D = 1500"<<endl;/* fourth choice*/
+/*and it repeated with all questions  (cp >-> ps)*/
+  //here u put one char variable to put it in for loop statment
+   cout<<"please enter your answer from (-A-) (-B-) (-C-) (-D-)"<<endl;
+ char z;
+ cin>>z;/*input for chrachter*/
+for (size_t i = 0; i < 4; i++)/*
+ (for-loop) statment and it repeated but it cause some bugs and errors
+ i sugesst use while cause it easier and less riskey than for in copy and paste
+ /*   sorry if the bugs still exist run it on codeblocks will be better */
+{
+  if (z == 'A') /*num_1  prediction*/
+  {
+    cout<<"wrong answer try again "<<endl;
+    cin>>z;
+  }
+  else if (z == 'B')/*num_2  prediction*/
+  {
+    cout<<"no try again u r close"<<endl;
+    cin>>z;
+  }
+   else if (z == 'D')/*num_3  prediction*/   /*->(R)<-*/   /* (R) means its right */
+  {
+    cout<<"correct answer great work go to next one"<<endl;
+
+  break;}
+
+   else if (z =='C')/*num_4  prediction*/
+  {
+    cout<<"no try again u r  too close"<<endl;
+    cin>>z;
+  }
+}
+cout<<"the next question is "<<endl<</* the next question is here */
+"60 * (800/100) + 40 - 900 + (5000/90)  in binary = "<<endl<<
+"hent --> move it to decimal first"<<endl;
+cout<<" A = 11101100"<<endl               /*i wrote an explenatoion about  ^*/
+<<" B = 00110111"<<endl                   /* all the programm in           |*/
+<<" C = 111011"<<endl                     /* the first example             |*/
+<<" D = 0011110"<<endl;
+
+   cout<<"please enter your answer from (-A-) (-B-) (-C-) (-D-)"<<endl;
+ char o;
+ cin>>o;
+for (size_t E = 0; E < 3; E++)
+{
+  if (o == 'B')
+  {
+    cout<<"correct answer great go to the next clicl (n) button to continue   -> "<<endl;/* here the (R)*/
+     break;                                                 /*i wrote an explenatoion about  ^*/
+  }                                                         /* all the programm in           |*/
+  else if (o == 'A')                                   /* the first example             |*/
+  {
+    cout<<"no try again u r close"<<endl;
+    cin>>o;
+  }
+   else if (o == 'C')
+  {
+    cout<<"no no its wrong"<<endl; /* hereu should add only capital chrachter
+     -> adding small chrachter will make errors c++ dont apply double types of one chrachter at the same variable*/
+    cin>>o;
+ }
+
+   else if (o == 'D')
+  {
+    cout<<"no try again u r  too close"<<endl;
+    cin>>o;
+  }
+}
+ cout<<"lets go to the next one my friendoo (; --> "<<endl; /* here u type some intro-titles tp attract player */
+ cout<<"CPU in motherboard is meanning of "<<endl;          /*to continue and not leave*/
+ cout<<" A = GPU + CU "<<endl
+<<" B = ALU + GPU "<<endl
+<<" C = ALU + CU"<<endl
+<<" D = CU + CLU"<<endl;
+char w;
+cin>>w;
+for (size_t v = 0; v < 3; v++)
+{
+  if (w == 'A')
+  {
+    cout<<"wrong answer try again  -> "<<endl;
+    cin>>w;
+
+  }
+  else if (w == 'B')
+  {
+    cout<<"oh no no try again"<<endl;
+    cin>>w;
+  }
+   else if (w == 'C')
+  {
+    cout<<"ohh nice u have a nice info in  -->'CS'<--  bro (;"<<endl;
+    break;
+ }
+
+   else if (w == 'D')
+  {
+    cout<<"no try again u r  too close"<<endl;
+    cin>>w;
+  }
+}
+cout<<"ok ok u do a great progress its nice <:"<<endl;
+cout<< "so lets go to the before last question "<<endl;
+cout<<"hmm lets see  -->  heaxdicmal numbers fall between: ->"<<endl;
+cout<<" A =  [0-7]"<<endl
+<<" B = [0-1]"<<endl
+<<" C = [0-15]"<<endl
+<<" D = [0-9]"<<endl;             /*if u want to write some questions*/
+char n;                           /*try to write quess that u maybe know or saw it before*/
+cin>>n;                           /*dont put hard ones taht will make players get bored*/
+for (size_t u = 0; u < 1; u++)    /*hint: u can stole some bro its a war (<  */
+                                  /*i mean by asking doctors or find some of ones in ps websites*/
+{
+  if (n == 'A')
+  {
+    cout<<"wrong answer try again  -> "<<endl;
+    cin>>n;
+
+  }
+  else if (n == 'B')
+  {
+    cout<<"no try again "<<endl;
+    cin>>n;
+
+  }
+   else if (n == 'C')
+  {
+    cout<<"ohh nice u have a nice info in  -->'CS'<--  bro"<<endl;
+    break;
+ }
+
+   else if (n == 'D')
+  {
+    cout<<"wrong one bro"<<endl;
+    cin>>n;
+  }
+}
+cout<<"ok ok u reach that so, that means u'd sloved all what was before"<<endl/* some statments to introduce ur ending one*/
+<<"so its time for the last one amigooo <:"<<endl;/*------------------------------*/
+cout<<"the last question is --->  what is the lowest number for gpus in ur computer "<<endl;
+cout<<" A =  [2]"<<endl
+<<" B = [0]"<<endl
+<<" C = [1]"<<endl
+<<" D = [3]"<<endl;
+char p;
+cin>>p;
+for (size_t k = 0; k < 3; k++)
+{
+  if (p == 'A')
+  {
+    cout<<"wrong answer try again  -> "<<endl;
+    cin>>p;
+
+  }
+  else if (p == 'B')
+  {
+    cout<<"wrong one bro "<<endl;
+    cin>>p;
+  }
+   else if (p == 'C')
+  {
+    cout<<"corect one bro"<<endl;
+    break;
+ }
+
+   else if (p == 'D')
+  {
+    cout<<"no no try again"<<endl;
+    cin>>p;
+
+  }
+} /*here u talk about the ending in the last ans and try to make user plat again by throw a rope to restrat the code and play again*/
+cout<<"so now u finished my choosing game dont forget to rate it tank u <;"<<endl<<
+"run the programme again and try another game"<<endl;
+ }
+/*-----------------------------------------------------------------------------------------------------/*-----------------------------------------------------------------------------------------------------*/
+else if (y ==2){ // game num2                                  (-rewrite it-)
+  cout<<"ok in this game i will show u some words and u will  fill in the missing letters in it "<<endl
+  <<"we will play 5 times so try to be patient (: "<<endl<<"u have 3 turns only for every word"<<endl;
+  cout<<"first one is    |  t*e_gr**t_c*in*_wal*  |"<<endl;
+string right_word;          //i made a variable to take the right one here and save it in memory
+cin>>right_word;           //here u ask the user to input the guessing word but wihl all letters in small chrachters
+                            //and with underscore ->(_) as a sapce between words
+int r=0;                    //---->here i made integer to recall it as a number of tries that user made
+  for (size_t i = 0; i < 3; i++)            /*in this game i will give u somw words*/
+  {
+    if(right_word == "the_great_china_wall")/*but the word have some hidden letters on it*/
+    {cout<<"wow u r great"<<endl;           /*now u should guess it and write it again  in the terminal*/
+
+    break;}
+    else{
+      cout<<"please try again"<<endl;
+      cin>>right_word;
+
+      r++;/*--> here i added a recursive means that in every turn the integer will be increased as a*/
+      if(r==2)/*-->r=r+1-------------------------------------------------------------------------------^*/
+      cout<<"u faield  rerun the cod >: ";// here if the turnsended that means u lost
+    }
+  }
+   if(r<2)/*u dont allow user to continue playing is the turns skipped the detected number u made before*/
+cout<<"nice now u have one point"<<endl<<"lets go to second word"<<endl;
+
+cout<<"| cy**e*_se*uri*y |"<<endl;
+int m=0;
+string right_word_2;
+cin>>right_word_2;
+for (size_t a = 0; a < 3; a++)
+  {
+    if(right_word_2 == "cyber_security")
+    {cout<<"wow u r great"<<endl;
+    break;}
+    else{                              /*some errors happened in c++ cause of cp and ps so u should be careful about trying cod alot of times*/
+      cout<<"please try again"<<endl;  /*when u see error u cant deal with try to search alot about it and try to read documents and codes  in platforms like github  */
+                                       /*rememmber to put a start point for any integer to be like that(int x = 0) not like that (int x;)  cause that will make some memory errors*/
+      cin>>right_word_2;               /* for loop used here to append tries for users and to save time for me as a programmer */
+      m++;                             /*try to make it easy fot user to write not make him busy with alot of codes in terminal*/
+      if(m==2)                                              /* enjoy with code (:   -> insta : molotof.21*/
+      cout<<"u faield  rerun the cod >: ";
+    }
+  }
+   if(m<2){
+   cout<<"now u have 2 points lets go to third word"<<endl;
+   }
+   cout<<"now let's go to the next word for point 3 (;"<<endl;
+   cout<<" |   ne*_y**k_ci*y   |"<<endl;
+   int u=0;
+string right_word_3;
+cin>>right_word_3;
+for (size_t a = 0; a < 3; a++)
+  {
+    if(right_word_3 == "new_york_city")
+    {cout<<"wow u r great"<<endl;
+    break;}
+    else{
+      cout<<"please try again"<<endl;
+      cin>>right_word_3;
+      u++;
+      if(u==2)
+      cout<<"u faield  rerun the cod >: ";
+    }
+  }
+    cout<<"great work now u have 3 points "<<endl
+    <<"the before last word is  "<<endl<<
+    "| co***t*r |"<<endl;
+    int l=0;
+string right_word_4;
+cin>>right_word_4;
+for (size_t a = 0; a < 3; a++)
+  {
+    if(right_word_4 == "computer")
+    {cout<<"wow u r great"<<endl;
+    break;}
+    else{
+      cout<<"please try again"<<endl;
+      cin>>right_word_4;
+      l++;
+      if(l==2)
+      cout<<"u faield  rerun the cod >: ";
+    }
+  }
+   if(m<2){
+ cout<<"wow wow u r in the last one o: "<<endl;}
+ cout<<"the las one is "<<endl<<
+ "|sof**a*e *n**n*er|"<<endl;
+int q=0;
+string right_word_5;
+cin>>right_word_5;
+for (size_t a = 0; a < 3; a++)
+  {
+    if(right_word_5 == "software_engineer")
+    {cout<<"wow u r great"<<endl;
+    break;}
+    else{
+      cout<<"please try again"<<endl;
+      cin>>right_word_5;
+      q++;
+      if(q==2)
+      cout<<"u faield  rerun the cod >: ";
+    }
+  }
+ if(q<2){
+  cout<<"now we are finished thank u 4 using my code and my (re-wrtie it) game (: "<<endl;}
+};/*-----------------------------------------------------------------------------------------------------*/
+
+ if (y==5){//game num5                    (-complete the code-)
+cout<<"welcome to complete the code game "<<endl<<"in this game i will give u some codes in c++ and u will complete it "<<endl;
+cout<<"as  we have 5 rounds so be ready (: "<<endl<<"so the first one is "<<endl;
+cout<<"      |      "<<endl;/*here i write some open words to my new game and explain it before playing*/
+cout<<"      v      "<<endl<</*i gave an small semulation for compiler and some codes had written on it*/
+  "|#include<iostream>|"<<endl/*   ->library   */
+<<"|using ------space;|"<<endl/*    ::std      */
+<<"|---  main (){     |"<<endl/* main function */
+<<"|cout--''i love c++'';}|"<<endl;/*printing code */
+string the_word;/*here i put an variable in type string refer to the right word that must be written*/
+string arr[3];/*here i made an array to use it as inputs from users and use users inputs as a answers */
+for (size_t i = 0; i < 3/* n times */; i++)//this is an for-loop i made it to take inputs n times
+{
+  cin>>arr[i];
+
+};
+/*---------------------------------------------------------------------------------*/
+for (size_t c = 0; c < 3; c++)//here for-loop used for correct answers and wrong ones;
+{if(arr[0]=="name"/* --> first input*/ && arr [1]=="int"/* --> second input */ && arr[2]=="<<"/* --> thierd input*/)
+     {
+
+      break;}
+   else{
+    cout<<"try again u r too close"<<endl;
+    for (size_t i = 0; i < 3; i++)/*here for-loop */
+     {cin>>arr[i];}}}             /*to reput answers if there were wrong*/
+
+cout<<"wow bro nice u r good a programmer in c++"<<endl;
+cout<<"oh thats nice one  now we will go to the next question and i think thats gonna be easier (;"<<endl<<
+"            |          "<<
+"            v          ";
+cout<<"             "<<endl;
+cout<<"             "<<endl<<
+"|#include<iostream>|"<<endl
+<<"|---- namespace;   |"<<endl
+<<"|int  ---- (){     |"<<endl<<
+  "|int x;            |"<<endl
+<<"|cin--x;           |"<<endl;
+string the_word_2;
+string arr_2[3];
+for (size_t i = 0; i < 3; i++)
+{
+  cin>>arr_2[i];
+
+};
+for (size_t c = 0; c < 3; c++)
+{if(arr_2[0]=="using" && arr_2[1]=="main" && arr_2[2]==">>")
+     {
+      break;}
+   else{
+    cout<<"try again u r too close"<<endl;
+    for (size_t i = 0; i < 3; i++)
+     {cin>>arr_2[i];}}}
+
+cout<<"very good my bro now lets go to the third one "<<endl;
+cout<<"      |          "<<endl<<
+      "      v          ";
+cout<<"             "<<endl;
+cout<<"             "<<endl<<
+  "|#include<iostream>|"<<endl
+<<"|using namespace;  |"<<endl
+<<"|int  main (){     |"<<endl<<
+  "|int x,-,--;       |"<<endl
+<<"|cin>>x;           |"<<endl
+<<"|cin--y;           |"<<endl
+<<"|cout<<'' y+ --=z '';|"<<endl;
+cout<<" HINT -->     the ouput = x + y"<<endl;
+string the_word_3;
+string arr_3[4];
+for (size_t i = 0; i < 4; i++)
+{
+  cin>>arr_3[i];
+
+};
+for (size_t c = 0; c < 3; c++)
+{if(arr_3[0]=="y" && arr_3[1]=="z" && arr_3[2]==">>" && arr_3[3]=="x")
+     {
+      break;}
+   else{
+    cout<<"try again u r too close"<<endl;
+    for (size_t i = 0; i < 3; i++)
+     {cin>>arr_3[i];}}}
+
+cout<<"ok ok thats sounds great now i think we can go to the next one "<<endl;
+cout<<"      |          "<<endl<<
+      "      v          ";
+cout<<"             "<<endl;
+cout<<"             "<<endl<<
+  "|#include<-------->|"<<endl
+<<"|using namespace;  |"<<endl
+<<"|int  main (){     |"<<endl<<
+  "|--- x;            |"<<endl
+<<"|cin--x;           |"<<endl
+<<"|cout--''x'';      |"<<endl;
+cout<<" HINT -->   the ouput = 5"<<endl;
+string the_word_4;
+string arr_4[4];
+for (size_t i = 0; i < 4; i++)
+{
+  cin>>arr_4[i];
+
+};
+for (size_t c = 0; c < 3; c++)
+{if(arr_4[0]=="iostream" && arr_4[1]=="int" && arr_4[2]==">>" && arr_4[3]=="<<")
+     {
+      break;}
+   else{
+    cout<<"try again u r too close"<<endl;
+    for (size_t i = 0; i < 3; i++)
+     {cin>>arr_4[i];}}}
+
+cout<<"wow awesome o: "<<endl<<
+"i think now we can go to the next and last one and this might be hardedr <;"<<endl;
+
+
+cout<<"      |          "<<endl<<
+      "      v          ";
+cout<<"             "<<endl;
+cout<<"             "<<endl<<
+  "|#-------<-------->|"<<endl
+<<"|using ---------;  |"<<endl
+<<"|int  ---- (){     |"<<endl<<
+  "|--- -; -> here is the variable   space = _  |"<<endl
+<<"|cin--x;           |"<<endl
+<<"|cout--''x'';      |"<<endl;
+cout<<" HINT -->   it is the num 4 code >: "<<endl;
+string the_word_5;
+string arr_5[7];
+for (size_t i = 0; i < 7; i++)
+{
+  cin>>arr_5[i];
+
+};
+for (size_t c = 0; c < 3; c++)
+{if(arr_5[0]=="include" && arr_5[1]=="iostream" && arr_5[2]=="namespace" && arr_5[3]=="main" && arr_5[4]=="int_x" && arr_5[5]==">>" && arr_5[6]=="<<")
+     {
+      break;}
+   else{
+    cout<<"try again u r too close"<<endl;
+    for (size_t i = 0; i < 3; i++)
+     {cin>>arr_5[i];}}}
+     cout<<"wow now u finished game num 5 "<<endl<<
+     "i hope that u enjoyed my game and dont forget to rate it <: "<<endl;
+
+
+     }
+else if (y==4)
+{
+ setup();
+draw();
+_move();
+input();
+while (!player1.lose) /* only when playes in (-> winning <-)  status */
+{
+    draw();/*       recall functions    */
+    input();
+    _move();
+    Sleep(50);/* this function help in refresh the screen every (x) milsec */
+}
+
+}
+
+}
+
